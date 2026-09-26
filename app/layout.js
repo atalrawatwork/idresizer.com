@@ -19,6 +19,9 @@ export const metadata = {
     "USPS passport photo",
     "railcard photo resizer",
   ],
+  verification: {
+    google: "5qBtk0UUBU7xmo0ZSVbWTw0ZIrr5zAVl_DSOP_rDSa8",
+  },
   openGraph: {
     title: "idresizer.com — Resize & Crop Photos for Official Documents",
     description:
