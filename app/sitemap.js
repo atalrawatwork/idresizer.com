@@ -1,7 +1,7 @@
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { TOOLS } from "@/lib/tools";
 
-const BASE_URL = "https://www.idresizer.com";
+const BASE_URL = "https://idresizercom.vercel.app";
 
 export default function sitemap() {
   const staticRoutes = [
