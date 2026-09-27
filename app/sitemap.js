@@ -15,7 +15,7 @@ export default function sitemap() {
   ].map((r) => ({ ...r, lastModified: new Date() }));
 
   const toolRoutes = TOOLS.map((tool) => ({
-    url: `${BASE_URL}/tools/${tool.slug}`,
+    url: `${BASE_URL}${tool.route}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 0.9,

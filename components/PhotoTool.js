@@ -55,7 +55,7 @@ function canvasToBlob(canvas, quality) {
   });
 }
 
-export default function PhotoTool({ defaultSlug }) {
+export default function PhotoTool({ defaultSlug, locked = false }) {
   const [toolSlug, setToolSlug] = useState(defaultSlug || TOOLS[0].slug);
   const [status, setStatus] = useState("idle"); // idle | processing | done | error
   const [resultUrl, setResultUrl] = useState(null);
@@ -137,17 +137,24 @@ export default function PhotoTool({ defaultSlug }) {
         <label className="mt-5 block text-sm font-semibold text-navy">
           Document type
         </label>
-        <select
-          value={toolSlug}
-          onChange={handleToolChange}
-          className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-navy shadow-sm focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100"
-        >
-          {TOOLS.map((t) => (
-            <option key={t.slug} value={t.slug}>
-              {t.flag} {t.name}
-            </option>
-          ))}
-        </select>
+        {locked ? (
+          <div className="mt-2 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-navy">
+            <span>{tool.flag}</span>
+            {tool.name}
+          </div>
+        ) : (
+          <select
+            value={toolSlug}
+            onChange={handleToolChange}
+            className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-navy shadow-sm focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100"
+          >
+            {TOOLS.map((t) => (
+              <option key={t.slug} value={t.slug}>
+                {t.flag} {t.name}
+              </option>
+            ))}
+          </select>
+        )}
 
         <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs text-slate-500">
           <div className="rounded-lg bg-slate-50 py-2">

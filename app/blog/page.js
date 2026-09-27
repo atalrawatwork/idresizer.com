@@ -9,9 +9,11 @@ export const metadata = {
 };
 
 export default function BlogPage() {
-  const groupA = BLOG_POSTS.slice(0, 2);
-  const groupB = BLOG_POSTS.slice(2, 4);
-  const groupC = BLOG_POSTS.slice(4, 6);
+  const CHUNK_SIZE = 6;
+  const groups = [];
+  for (let i = 0; i < BLOG_POSTS.length; i += CHUNK_SIZE) {
+    groups.push(BLOG_POSTS.slice(i, i + CHUNK_SIZE));
+  }
 
   const renderCard = (post) => (
     <Link
@@ -62,25 +64,18 @@ export default function BlogPage() {
         <AdSlot label="Advertisement" size="leaderboard" />
       </div>
 
-      <div className="mx-auto mt-8 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {groupA.map(renderCard)}
-      </div>
-
-      <div className="mx-auto my-8 max-w-4xl">
-        <AdSlot label="Advertisement" size="banner" />
-      </div>
-
-      <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {groupB.map(renderCard)}
-      </div>
-
-      <div className="mx-auto my-8 max-w-4xl">
-        <AdSlot label="Advertisement" size="banner" />
-      </div>
-
-      <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {groupC.map(renderCard)}
-      </div>
+      {groups.map((group, gi) => (
+        <div key={gi}>
+          <div className="mx-auto mt-8 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {group.map(renderCard)}
+          </div>
+          {gi < groups.length - 1 && (
+            <div className="mx-auto my-8 max-w-4xl">
+              <AdSlot label="Advertisement" size="banner" />
+            </div>
+          )}
+        </div>
+      ))}
 
       <div className="mx-auto mt-10 max-w-4xl">
         <AdSlot label="Advertisement" size="leaderboard" />

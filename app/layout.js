@@ -19,7 +19,7 @@ export const metadata = {
     "USPS passport photo",
     "railcard photo resizer",
   ],
-  verification: {
+   verification: {
     google: "5qBtk0UUBU7xmo0ZSVbWTw0ZIrr5zAVl_DSOP_rDSa8",
   },
   openGraph: {

@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { getToolsByRegion } from "@/lib/tools";
 
 export default function Footer() {
+  const usTools = getToolsByRegion("US").slice(0, 5);
+  const ukTools = getToolsByRegion("UK").slice(0, 5);
+
   return (
     <footer className="border-t border-slate-100 bg-navy text-slate-300">
       <div className="container-page flex flex-col gap-8 py-12 md:flex-row md:items-start md:justify-between">
@@ -25,7 +29,7 @@ export default function Footer() {
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Site</p>
             <ul className="mt-3 space-y-2 text-sm">
               <li><Link href="/" className="hover:text-white">Home</Link></li>
-              <li><Link href="/#tools" className="hover:text-white">Tools</Link></li>
+              <li><Link href="/tools" className="hover:text-white">Tools</Link></li>
               <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
               <li><Link href="/about" className="hover:text-white">About</Link></li>
               <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
@@ -34,17 +38,21 @@ export default function Footer() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">US Tools</p>
             <ul className="mt-3 space-y-2 text-sm">
-              <li><Link href="/#tools" className="hover:text-white">Visa Photo 600x600</Link></li>
-              <li><Link href="/#tools" className="hover:text-white">Passport Photo Crop</Link></li>
-              <li><Link href="/#tools" className="hover:text-white">USPS Appointment Photo</Link></li>
+              {usTools.map((tool) => (
+                <li key={tool.slug}>
+                  <Link href={tool.route} className="hover:text-white">{tool.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">UK Tools</p>
             <ul className="mt-3 space-y-2 text-sm">
-              <li><Link href="/#tools" className="hover:text-white">Passport 35x45mm</Link></li>
-              <li><Link href="/#tools" className="hover:text-white">DVLA License Photo</Link></li>
-              <li><Link href="/#tools" className="hover:text-white">Railcard Photo</Link></li>
+              {ukTools.map((tool) => (
+                <li key={tool.slug}>
+                  <Link href={tool.route} className="hover:text-white">{tool.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getPostBySlug } from "@/lib/blogPosts";
-import { TOOLS } from "@/lib/tools";
+import { getToolBySlug } from "@/lib/tools";
 import AdSlot from "@/components/AdSlot";
 
 export function generateStaticParams() {
@@ -27,7 +27,7 @@ export default function BlogPostPage({ params }) {
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
 
-  const related = TOOLS[0];
+  const related = getToolBySlug(post.relatedToolSlug);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -103,19 +103,21 @@ export default function BlogPostPage({ params }) {
           <AdSlot label="Advertisement" size="leaderboard" />
         </div>
 
-        <div className="mt-10 flex items-center gap-4 rounded-2xl bg-brand-50 p-5">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-lg shadow-sm">
-            {related.flag}
-          </span>
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-navy">
-              Use our {related.name} to automatically resize and crop your photo.
-            </p>
+        {related && (
+          <div className="mt-10 flex items-center gap-4 rounded-2xl bg-brand-50 p-5">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-lg shadow-sm">
+              {related.flag}
+            </span>
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-navy">
+                Use our {related.name} to automatically resize and crop your photo.
+              </p>
+            </div>
+            <Link href={related.route} className="btn-primary shrink-0">
+              Try Now
+            </Link>
           </div>
-          <Link href={`/tools/${related.slug}`} className="btn-primary shrink-0">
-            Try Now
-          </Link>
-        </div>
+        )}
       </div>
     </article>
   );

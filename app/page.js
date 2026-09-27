@@ -4,6 +4,10 @@ import FAQ from "@/components/FAQ";
 import AdSlot from "@/components/AdSlot";
 import { TOOLS } from "@/lib/tools";
 
+const POPULAR_TOOLS = TOOLS.filter((t) =>
+  ["us-visa-600x600", "dv-lottery", "us-green-card", "uk-passport-35x45", "uk-driving-license", "uk-railcard"].includes(t.slug)
+);
+
 const BADGES = [
   { icon: "⚡", label: "Fast", desc: "Get your perfect photo in seconds" },
   { icon: "🔒", label: "Secure & Private", desc: "Your photos are safe with us" },
@@ -123,7 +127,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {TOOLS.map((tool) => (
+            {POPULAR_TOOLS.map((tool) => (
               <div key={tool.slug} className="card flex flex-col p-6">
                 <div className="flex items-start justify-between">
                   <span className="text-2xl">{tool.flag}</span>
@@ -133,7 +137,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="mt-3 text-base font-bold text-navy">{tool.name}</h3>
                 <p className="mt-1 flex-1 text-sm text-slate-500">{tool.short}</p>
-                <Link href={`/tools/${tool.slug}`} className="btn-primary mt-4 w-full">
+                <Link href={tool.route} className="btn-primary mt-4 w-full">
                   Use Tool
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -141,6 +145,12 @@ export default function HomePage() {
                 </Link>
               </div>
             ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link href="/tools" className="btn-secondary">
+              View All {TOOLS.length} Tools
+            </Link>
           </div>
 
           <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 rounded-2xl bg-white p-6 shadow-card sm:grid-cols-3">
