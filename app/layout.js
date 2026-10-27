@@ -2,7 +2,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
-
+//google analytics
+import { GoogleAnalytics } from '@next/third-parties/google';
 export const metadata = {
   metadataBase: new URL("https://www.idresizer.com"),
   title: {
@@ -88,6 +89,7 @@ export default function RootLayout({ children }) {
         <main className="flex-1">{children}</main>
         <Footer />
         <CookieConsent />
+        <GoogleAnalytics gaId="G-BN33FYN84T" />
       </body>
     </html>
   );
