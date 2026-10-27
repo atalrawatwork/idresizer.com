@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 //google analytics
 import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 export const metadata = {
   metadataBase: new URL("https://www.idresizer.com"),
   title: {
@@ -89,8 +90,14 @@ export default function RootLayout({ children }) {
         <main className="flex-1">{children}</main>
         <Footer />
         <CookieConsent />
-        <GoogleAnalytics gaId="G-BN33FYN84T" />
+        
+          <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`window.clarity=window.clarity||function(){(clarity.q=clarity.q||[]).push(arguments)};
+          const t=document.createElement("script");t.async=1;t.src="https://clarity.ms";
+          document.head.appendChild(t);`}
+        </Script>
       </body>
+       <GoogleAnalytics gaId="G-BN33FYN84T" />
     </html>
   );
 }
